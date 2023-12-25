@@ -12,41 +12,51 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+
+        private List<int> numeros = new List<int>();
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+            int numero=0;
+            if (int.TryParse(txtnumero.Text, out numero))
+            {
+                numeros.Add(numero);
+
+                txtnumero.Text = listBox1.ToString();
+                txtnumero.Clear();
+
+            }
 
 
-            //declarar variables
-            int V, T;
-            float D;
-            //leer datos
-            V = int.Parse(txtVelocidad.Text);
-            T = int.Parse(txtTiempo.Text);
-            //procesos
-            D = V * T;
-            //escribir resultados
-            lblres.Text = D.ToString();
-
-
-
-
-
-
+            else
+            {
+                MessageBox.Show("Ingrese un número válido.");
+            }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+
+            int menorQue10 = numeros.Count(num => num < 10);
+            int entre10Y15 = numeros.Count(num => num >= 10 && num <= 15);
+            int mayorQue15 = numeros.Count(num => num > 15);
+
+            double promedio = numeros.Any() ? numeros.Average() : 0;
+
+            label2.Text = $"Menor que 10: {menorQue10}";
+            label3.Text = $"Entre 10 y 15: {entre10Y15}";
+            label4.Text = $"Mayor que 15: {mayorQue15}";
+            label5.Text = $"Promedio: {promedio:F2}";
+
+
+
+
 
         }
     }
-}
+    }
+
